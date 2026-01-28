@@ -1,0 +1,36 @@
+import os
+import shutil
+
+# TODO: Change this path to my actual downloads folder later
+# currently just using relative path for testing
+DOWNLOADS_DIR = "./downloads_test" 
+
+def organise():
+    if not os.path.exists(DOWNLOADS_DIR):
+        print("Bro create the folder first.....bruh")
+        return
+
+    files = os.listdir(DOWNLOADS_DIR)
+    
+    for file in files:
+        # Ignore hidden files
+        if file.startswith('.'):
+            continue
+            
+        # Logic is kinda hardcoded but works for now....kinda
+        if file.endswith((".jpg", ".png", ".jpeg")):
+            target = os.path.join(DOWNLOADS_DIR, "images")
+            os.makedirs(target, exist_ok=True)
+            shutil.move(os.path.join(DOWNLOADS_DIR, file), os.path.join(target, file))
+            print(f"Moved {file} to images")
+            
+        elif file.endswith(".pdf"):
+            target = os.path.join(DOWNLOADS_DIR, "docs")
+            os.makedirs(target, exist_ok=True)
+            shutil.move(os.path.join(DOWNLOADS_DIR, file), os.path.join(target, file))
+            print(f"Moved {file} to docs")
+
+if __name__ == "__main__":
+    print("LET THE CLEANSE BEGINNNN")
+    organise()
+    print("THE CLEANSE IS COMPLETE MUAHAHHAHA.....sorry but it's done yes :)")
